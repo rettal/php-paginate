@@ -1,5 +1,7 @@
 <?php
 
+namespace Paginate;
+
 interface PaginationInterface {
     public function getRecordsPerPage();
     public function getParams();

@@ -1,5 +1,7 @@
 <?php
 
+namespace Paginate;
+
 class PaginationService {
     
     protected $pagerView = null;

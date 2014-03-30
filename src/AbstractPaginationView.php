@@ -1,5 +1,7 @@
 <?php
 
+namespace Paginate;
+
 abstract class AbstractPaginationView {
     
     protected $pagination;

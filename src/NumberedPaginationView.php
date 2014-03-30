@@ -1,5 +1,7 @@
 <?php
 
+namespace Paginate;
+
 class NumberedPaginationView extends NextAndPrevPaginationView {
     
     public function __construct() {

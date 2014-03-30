@@ -1,5 +1,7 @@
 <?php
 
+namespace Paginate;
+
 class PaginationFactory {
 
     public function __construct() {
