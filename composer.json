@@ -1,0 +1,8 @@
+{
+    "name": "rettal/php-paginate",
+    "autoload": {
+        "psr-0" : {
+            "Paginate" : "src"
+        }
+    }
+}
