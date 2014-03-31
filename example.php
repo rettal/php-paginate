@@ -32,6 +32,7 @@ try {
     $ps->initPagination($pagerViewConfig, $pagerConfig);
 }catch(Exception $e) {
     echo $e->getMessage();
+    exit;
 }
 
 // output; in this case html
