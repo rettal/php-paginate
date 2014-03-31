@@ -9,7 +9,7 @@ class PaginationFactory {
     }
 
     public function getPagination($name, array $config = array()) {
-        $class = "{$name}";
+        $class = "\Paginate\\{$name}";
         $pagination = new $class($config);
         return $pagination;
     }

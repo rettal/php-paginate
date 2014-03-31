@@ -9,7 +9,7 @@ class PaginationViewFactory {
     }
 
     public function getView($name, array $options = array()) {
-        $class = "{$name}PaginationView";
+        $class = "\Paginate\\{$name}PaginationView";
         $view = new $class();
         $view->setOptions($options);
         return $view;
