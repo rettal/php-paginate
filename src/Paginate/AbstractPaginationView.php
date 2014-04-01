@@ -28,10 +28,23 @@ abstract class AbstractPaginationView {
             array('', '&'),
             $href
         );
-        
         return $href;
     }
 
-    public abstract function getOutput();
-    
+    protected function getCanonicalUrl()
+    {
+        $target = $this->pagination->getTargetPath();
+        if (empty($target)) {
+            $target = $_SERVER['PHP_SELF'];
+        }
+        $canonical = (isset($this->options['canonical']) ? $this->options['canonical'] : '');
+        if(empty($canonical)) {
+            $canonical = 'http://' . ($_SERVER['HTTP_HOST']) . ($target);
+        }else {
+            $canonical . ($target);
+        }
+        return $canonical;
+    }
+
+    public abstract function getOutput();    
 }

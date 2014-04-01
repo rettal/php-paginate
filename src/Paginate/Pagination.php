@@ -108,18 +108,6 @@ class Pagination implements PaginationInterface {
     public function getCSSClasses() {
         return $this->variables['classes'];
     }
-    public function getCanonicalUrl()
-    {
-        $target = $this->variables['targetPath'];
-        if (empty($target)) {
-            $target = $_SERVER['PHP_SELF'];
-        }
-        $page = (int) $this->variables['currentPage'];
-        if ($page !== 1) {
-            return 'http://' . ($_SERVER['HTTP_HOST']) . ($target) . $this->getPageParam();
-        }
-        return 'http://' . ($_SERVER['HTTP_HOST']) . ($target);
-    }
     /**
      * isValid
      * 
