@@ -11,14 +11,8 @@ class NextAndPrevPaginationView extends AbstractPaginationView {
         
         // anchor classes and target
         $classes = array('copy', 'next');
-        $params = $this->pagination->getParams();
-        $params[$this->pagination->getParamKey()] = ($this->pagination->getCurrentPage() + 1);
-        $href = ($this->pagination->getTargetPath()) . '?' . http_build_query($params);
-        $href = preg_replace(
-            array('/=$/', '/=&/'),
-            array('', '&'),
-            $href
-        );
+
+        $href = $this->getHrefForPageNum($this->pagination->getCurrentPage() + 1);
         if ($this->pagination->getCurrentPage() === $this->pagination->getTotalPageCount()) {
             $href = '#';
             array_push($classes, 'disabled');
@@ -28,20 +22,11 @@ class NextAndPrevPaginationView extends AbstractPaginationView {
     }
 
     protected function getPreviousLink() {
-        /**
-         * Previous Link
-         */
 
         // anchor classes and target
         $classes = array('copy', 'previous');
-        $params = $this->pagination->getParams();
-        $params[$this->pagination->getParamKey()] = ($this->pagination->getCurrentPage() - 1);
-        $href = ($this->pagination->getTargetPath()) . '?' . http_build_query($params);
-        $href = preg_replace(
-            array('/=$/', '/=&/'),
-            array('', '&'),
-            $href
-        );
+        
+        $href = $this->getHrefForPageNum($this->pagination->getCurrentPage() - 1);
         if ($this->pagination->getCurrentPage() === 1) {
             $href = '#';
             array_push($classes, 'disabled');

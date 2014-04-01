@@ -4,14 +4,15 @@ namespace Paginate;
 
 class NumberedPaginationView extends NextAndPrevPaginationView {
     
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
     
-    protected function getNumberedLinks() {
+    protected function getNumberedLinks()
+    {
         /**
-         * Calculates the number of leading page crumbs based on the minimum
-         *     and maximum possible leading pages.
+         * Calculates the number of leading page crumbs based on the minimum and maximum possible leading pages.
          */
         $max = min($this->pagination->getTotalPageCount(), $this->pagination->getNumPagingLinksToShow());
         $limit = ((int) floor($max / 2));
@@ -32,40 +33,29 @@ class NumberedPaginationView extends NextAndPrevPaginationView {
         // calculate trailing crumb count based on inverse of leading
         $trailing = $max - $leading - 1;
         $pageLinks = '';
+        
         // generate/render leading crumbs
         for ($x = 0; $x < $leading; ++$x) {
-            // class/href setup
-            $params = $this->pagination->getParams();
-            $params[$this->pagination->getParamKey()] = ($this->pagination->getCurrentPage() + $x - $leading);
-            $href = ($this->pagination->getTargetPath()) . '?' . http_build_query($params);
-            $href = preg_replace(
-                array('/=$/', '/=&/'),
-                array('', '&'),
-                $href
-            );
-            $pageLinks .= '<li class="number"><a data-pagenumber="'.($this->pagination->getCurrentPage() + $x - $leading).'" href="'.$href.'">'.($this->pagination->getCurrentPage() + $x - $leading).'</a></li>';
-        }
+            $pageNum = $this->pagination->getCurrentPage() + $x - $leading;
+            $href = $this->getHrefForPageNum($pageNum);
+            $pageLinks .= '<li class="number"><a data-pagenumber="'.($pageNum).'" href="'.$href.'">'.($pageNum).'</a></li>';
+    }
+    
         // print current page
         $pageLinks .= '<li class="number active"><a data-pagenumber="'.($this->pagination->getCurrentPage()).'" href="#">'.($this->pagination->getCurrentPage()).'</a></li>';
         
         // generate/render trailing crumbs
         for ($x = 0; $x < $trailing; ++$x) {
-            // class/href setup
-            $params = $this->pagination->getParams();
-            $params[$this->pagination->getParamKey()] = ($this->pagination->getCurrentPage() + $x + 1);
-            $href = ($this->pagination->getTargetPath()) . '?' . http_build_query($params);
-            $href = preg_replace(
-                array('/=$/', '/=&/'),
-                array('', '&'),
-                $href
-            );
-            $pageLinks .= '<li class="number"><a data-pagenumber="'.($this->pagination->getCurrentPage() + $x + 1).'" href="'.$href.'">'.($this->pagination->getCurrentPage() + $x + 1).'</a></li>';
+            $pageNum = $this->pagination->getCurrentPage() + $x + 1;
+            $href = $this->getHrefForPageNum($pageNum);
+            $pageLinks .= '<li class="number"><a data-pagenumber="'.($pageNum).'" href="'.$href.'">'.($pageNum).'</a></li>';
         }
         
         return $pageLinks;
     }
     
-    public function getOutput() {
+    public function getOutput()
+    {
         if($this->pagination->isValid()) {
             if(!empty($this->options['showNextAndPrevLinks']) && $this->options['showNextAndPrevLinks']) {
                 return '<ul class="'.implode(' ', $this->pagination->getCSSClasses()).'">'.$this->getPreviousLink().$this->getNumberedLinks().$this->getNextLink().'</ul>';
